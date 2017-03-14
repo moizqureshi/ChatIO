@@ -1,0 +1,167 @@
+<!-- app/templates/home/index.html -->
+<!-- EXTEND layout.html and create the main chat window -->
+{% extends "layout.html" %}
+{% block body %}
+<div class="logoutContainer">
+  <p>Hi {{currUser}}!</p>
+  <a id="logoutLink" href="/logout">Logout</a>
+</div>
+<div class="chatContainer">
+  <div class="chatUserList">
+    <div class="chatUserListHeader">
+      <p>Users</p>
+    </div>
+    {% for user in users %}
+    <div class="chatUser">
+      <a href="/user/{{user.username}}">
+        <div class="profilePic">
+          {% if user.pic_path %}
+          <img id="profile_img" src="{{user.pic_path}}">
+          {% else %}
+          <img id="profile_img" src="{{ url_for('static', filename='placeholder_avatar.png') }}">
+          {% endif %}
+        </div>
+        <div class="userInfo">
+          <h3>{{user.username}}</h3>
+          <h4>{{user.email}}</h4>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+    <div class="endChatUserList">
+      <p>End of List</p>
+    </div>
+  </div>
+  <div class="conversation">
+    <div class="conversationHistory" id="conversationHistory">
+      <div class="conversationHeader">
+        <p>Messages</p>
+      </div>
+      <div id="messageList">
+        <ul class="message" id="message">
+          {% for item in query %}
+          <li>
+            <div class="messageFlex">
+              <div class="messageFlexCol1">
+                <div class="messageSender">{{item.User.username}}</div>
+                <div class="timeStamp" id="timeStamp">{{item.Message.dateTime}}</div>
+              </div>
+              <div class="messageFlexCol2">
+                <div class="messageTxt">
+                  <p>{{item.Message.messageTxt}}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="endConversation">
+          <hr />
+          <p>End of Conversation</p>
+        </div>
+      </div>
+    </div>
+    <div class="inputMessage">
+      <div class="inputMsgArea">
+        <textarea id="messageText" type="text" placeholder="Type a message..." rows="100" wrap="soft"></textarea>
+      </div>
+      <div class="sendMsg">
+        <button type="sendBtn" id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var socket = io.connect('http://127.0.0.1:5000');
+    var username = "{{currUser}}";
+
+    var conversationHistory = document.getElementById("conversationHistory");
+    conversationHistory.scrollTop = conversationHistory.scrollHeight;
+
+    socket.on('connect', function(){
+      socket.send(username + ' has connected!');
+      console.log('Connected to SocketIO Server');
+    });
+
+    socket.on('json_msg_response', function(msg) {
+      console.log("Received a message:");
+
+      var messageFlexCol2 = document.createElement("div");
+      messageFlexCol2.setAttribute("class", "messageFlexCol2");
+
+      var paragraphEl = document.createElement("p");
+
+      var messageTxt = document.createElement("div");
+      messageTxt.setAttribute("class", "messageTxt");
+      messageTxt.textContent = msg.txt;
+      console.log(msg.txt);
+
+      paragraphEl.append(messageTxt);
+      messageFlexCol2.append(paragraphEl);
+
+      var messageFlexCol1 = document.createElement("div");
+      messageFlexCol1.setAttribute("class", "messageFlexCol1");
+
+      var messageSender = document.createElement("div");
+      messageSender.setAttribute("class", "messageSender");
+      messageSender.textContent = msg.user;
+      console.log(msg.user);
+
+      var timeStamp = document.createElement("div");
+      timeStamp.setAttribute("class", "timeStamp");
+      timeStamp.innerHTML = msg.timeStamp;
+      console.log(msg.timeStamp);
+
+      messageFlexCol1.append(messageSender, timeStamp);
+
+      var messageFlexElement = document.createElement("li");
+      messageFlexElement.setAttribute("class", "messageFlex")
+      messageFlexElement.append(messageFlexCol1, messageFlexCol2)
+
+      var listElement = document.createElement("li");
+      listElement.append(messageFlexElement);
+
+      $('#message').append(listElement);
+      conversationHistory.scrollTop = conversationHistory.scrollHeight;
+
+    });
+
+    $('#sendBtn').on('click', function(){
+      var text = $('#messageText').val();
+      if(text.length != 0) {
+        var msg = {txt: text, user: username};
+        socket.emit('json_msg', msg)
+        $('#messageText').val('');
+      }
+    });
+
+    $('#logoutLink').on('click', function(){
+      socket.disconnect();
+      console.log("Disconnected from SocketIO Server");
+    });
+
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+        $('#sendBtn').trigger('click');
+      }
+    });
+
+    $("#messageText").keydown(function(e){
+      if (e.keyCode == 13) {
+        e.preventDefault();
+        $('#sendBtn').trigger('click');
+        return false;
+      }
+    });
+
+    $("#messageText").keydown(function(e){
+      if ((e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)) {
+        $('#messageText').val($('#messageText').val() + "\n");
+      }
+    });
+
+  });
+</script>
+{% endblock %}

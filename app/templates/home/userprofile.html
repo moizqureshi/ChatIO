@@ -1,0 +1,132 @@
+<!-- app/templates/home/userprofile.html -->
+{% extends "layout.html" %}
+{% block body %}
+<div class="logoutContainer">
+  <p>Hi {{user.username}}!</p>
+  <a href="/logout">Logout</a>
+</div>
+<div class="userProfile">
+  <div class="userCard">
+    {% if user.pic_path %}
+    <img id="profile_img" src="{{user.pic_path}}">
+    {% else %}
+    <img id="profile_img" src="{{ url_for('static', filename='placeholder_avatar.png') }}">
+    {% endif %}
+      <div class="uploadPicBtn">
+        <input id="uploadImgInput" type="file" accept="image/*"/>
+        <a href="" id="uploadImgLink"><img src="{{ url_for('static', filename='camera.png') }}"></a>
+      </div>
+      <div class="userInfo">
+      <h4><b>{{user.username}}</b></h4>
+      <p>{{user.email}}</p>
+      </div>
+  </div>
+</div>
+
+<script>
+  $( document ).ready(function() {
+    $("#uploadImgLink").on('click', function(e){
+      e.preventDefault();
+      $("#uploadImgInput").trigger('click');
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  var theUser = '{{user.username}}';
+
+  $('#logoutLink').on('click', function(){
+    socket.disconnect();
+    console.log("Disconnected from SocketIO Server")
+  });
+
+   /*
+     Function to carry out the actual POST request to S3 using the signed request from the Python app.
+   */
+  function uploadFile(file, s3Data, url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", s3Data.url);
+
+    var postData = new FormData();
+    for(key in s3Data.fields){
+      postData.append(key, s3Data.fields[key]);
+    }
+    postData.append('file', file);
+
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4){
+        if(xhr.status === 200 || xhr.status === 204){
+          console.log("Upload Successful!!!");
+          updateImg(url);
+        }
+        else{
+          alert("Could not upload file.");
+        }
+      }
+    };
+    xhr.send(postData);
+   }
+
+  function updateImg(url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/update_img?imgPath="+url+"&user="+theUser);
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4){
+        if(xhr.status === 200 || xhr.status === 204){
+          console.log("Image Path Update Successful");
+          document.getElementById("profile_img").src=url;
+        }
+        else{
+          alert("Could not update path.");
+        }
+      }
+    };
+    xhr.send();
+  }
+
+
+   /*
+     Function to get the temporary signed request from the Python app.
+     If request successful, continue to upload the file using this signed
+     request.
+   */
+   function getSignedRequest(file){
+     var xhr = new XMLHttpRequest();
+     xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
+     xhr.onreadystatechange = function(){
+       if(xhr.readyState === 4){
+         if(xhr.status === 200){
+           var response = JSON.parse(xhr.responseText);
+           uploadFile(file, response.data, response.url);
+         }
+         else{
+           alert("Could not get signed URL.");
+         }
+       }
+     };
+     xhr.send();
+   }
+   /*
+      Function called when file input updated. If there is a file selected, then
+      start upload procedure by asking for a signed request from the app.
+   */
+   function initUpload(){
+     const files = document.getElementById('uploadImgInput').files;
+     const file = files[0];
+     if(!file){
+       return alert('No file selected.');
+     }
+     console.log(file.name);
+     console.log(file.type);
+     getSignedRequest(file);
+   }
+   /*
+      Bind listeners when the page loads.
+   */
+   (() => {
+     document.getElementById('uploadImgInput').onchange = initUpload;
+   })();
+   </script>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<!-- app/templates/home/index.html -->
+<!-- EXTEND layout.html and create the api window -->
+{% extends "layout.html" %}
+{% block body %}
+<div class="logoutContainer">
+  <p>Hi {{currUser}}!</p>
+  <a id="logoutLink" href="/logout">Logout</a>
+</div>
+<div class="container">
+  <div class="apiContainer">
+    <h1>NotoriousENG SmartPlug API - Light Data</h1>
+    <div class="lightDataContainer">
+      <ul class="lightDataList">
+        {% for reading in lightData["data"] %}
+        <li class="lightDataListItem">
+          <div class="lightADC">
+            <p>SmartPlug Light ADC Value is {{reading["value"]}}.</p>
+          </div>
+          <div class="timeStamp">
+            <p>{{reading["ts"]}}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

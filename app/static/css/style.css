@@ -1,0 +1,618 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+}
+
+header, footer {
+  flex: none;
+}
+
+header {
+  display: table;
+  margin: 0px;
+  padding: 0px;
+  height: 7em;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+}
+
+header > a > h1 {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 5em;
+  font-weight: 100;
+  color: white;
+}
+
+header > a > h5 {
+  position: absolute;
+  top: 2.8em;
+  left: 70em;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: 200;
+  color: white;
+}
+
+footer {
+  height: 7em;
+  width: 100%;
+  display:table;
+  text-align: center;
+  bottom: 0;
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+}
+
+footer > h5 {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: 200;
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+}
+
+.loginContainer {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+}
+
+.loginForm {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm > h1 {
+  order: 1;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5em;
+}
+
+.loginForm > input {
+  appearance: none;
+  outline: 0;
+  border: 0.1em solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 15em;
+  border-radius: 1em;;
+  padding: 0.5em 0.7em;
+  margin: 0 auto 1em auto;
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  color: white;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  font-weight: 300;
+}
+
+.loginForm > input:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.loginForm > input:focus {
+  background-color: white;
+  width: 18em;
+  color: #FD6F46;
+}
+
+#loginUsernameText {
+  order: 2
+}
+
+#loginPasswordText {
+  order: 3
+}
+
+#loginBtn {
+  order: 4;
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  border-radius: 5em;
+  padding: 0.5em 0.7em;
+  color: #FD6F46;
+  width: 10em;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition-duration: 0.25s;
+}
+
+#loginBtn:hover {
+  background-color: #f5f7f9;
+}
+
+.logoutContainer {
+  position: absolute;
+  display: inline-grid;
+  top: 2em;
+  right: 2em;
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+
+.chatContainer {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+}
+
+.chatUserList {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  order: 1;
+  border-right: 0.1em solid #D9D3D3;
+  overflow-y: scroll;
+}
+
+.chatUserListHeader {
+  flex: none;
+  border-bottom: 0.1em solid #D9D3D3;
+}
+
+.chatUserListHeader > p {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: #FD6F46;
+  font-size: 1em;
+}
+
+.chatUser {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 7em;
+  width: 100%;
+  border-bottom: 0.1em solid #D9D3D3;
+}
+
+.chatUser > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align:vleft;
+  font-family: 'Lato', sans-serif;
+}
+
+.profilePic {
+  order: 1
+  display: block;
+  margin-left: 2.5em;
+  height: 5em;
+  width: 5em;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border: 0.1em solid #FD6F46;
+  box-shadow: 0 0.8em 1.3em rgba(0, 0, 0, 0.3);
+}
+
+.profilePic > img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+.userInfo {
+  display: flex;
+  margin-left: 2.5em;
+  flex-direction: column;
+  order: 2;
+}
+
+.chatUser h3, h4 {
+  margin: 0em;
+  text-align: left;
+  color: #FD6F46;
+  font-weight: 200;
+}
+
+.chatUser h3 {
+  order: 1;
+}
+
+.chatUser h4 {
+  order: 2;
+  font-style: italic;
+  font-size: 10pt;
+}
+
+.endChatUserList {
+  flex: none;
+}
+
+.endChatUserList > p {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: #FD6F46;
+  font-size: 1em;
+}
+
+.conversation {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: auto;
+  flex-grow: 8;
+  flex-shrink: 1;
+  order: 2;
+}
+
+.conversationHistory {
+  overflow: scroll;
+  flex: auto;
+  order: 1
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin-bottom: 5em;
+
+}
+
+#messageList {
+  display: block;
+  padding-bottom: 1em;
+}
+
+.message {
+  overflow: scroll;
+  list-style-type: none;
+  margin-left: -2.5em;
+}
+
+
+.message > li {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 2em;
+  padding-top: 0.5em;
+  padding-bottom: 2.5em;
+  font-family: 'Lato', sans-serif;
+  border-bottom: 0.1em solid #D9D3D3;
+}
+
+.messageFlex {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageFlex:hover .timeStamp {
+  display: block;
+}
+
+.messageFlexCol1 {
+  display: flex;
+  flex-direction: row;
+  order: 1;
+}
+
+.messageSender {
+  order: 1;
+  flex: auto;
+  flex-grow: 40;
+  flex-shrink: 1;
+  position: relative;
+  font-weight: bold;
+  font-size: 1em;
+  padding-left: 1.5em;
+  color: #FD6F46;
+}
+
+.timeStamp {
+  order: 2;
+  flex-grow: 1;
+  flex-shrink: 1;
+  color: #aaaaaa;
+  display: none;
+}
+
+.messageFlexCol2 {
+  order: 2;
+  margin-left: 1.5em;
+}
+
+.messageTxt {
+  padding-top: 1em;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  color: #444343;
+}
+
+.conversationHeader {
+  flex: none;
+  border-bottom: 0.1em solid #D9D3D3;
+}
+
+.conversationHeader > p {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: #FD6F46;
+  font-size: 1em;
+}
+
+.endConversation {
+  flex: none;
+  text-align: center;
+}
+
+.endConversation > hr {
+  width: 25%;
+  border-top: 0.1em solid #D9D3D3;
+}
+
+.endConversation > p {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: #FD6F46;
+  font-size: 1em;
+}
+
+.inputMessage {
+  display: flex;
+  position: absolute;
+  height: 7em;
+  width: 100%;
+  bottom: 0;
+  border-top: 0.1em solid #D9D3D3;
+  order: 2;
+  flex: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.inputMsgArea {
+  flex: 0 1 90%;
+  padding: 1em;
+  border-right: 0.1em solid #D9D3D3;
+  background-color: white;
+}
+
+#messageText {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-size: 1em;
+  font-weight: 100;
+  overflow: auto;
+  resize: none;
+}
+
+.sendMsg {
+  flex: 0 1 10%;
+  text-align: center;
+  background-color: white;
+}
+
+#sendBtn {
+  position: relative;
+  display: block;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  font-weight: 100;
+  height: 100%;
+  width: 100%;
+  color: #FD6F46;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+#sendBtn:hover {
+  background: #FB9832;
+  color: white;
+  border-bottom: 0.1em solid white;
+}
+
+/**************************************************************************************************/
+/* userprofile styling */
+.userProfile {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+}
+
+.userCard {
+  flex: none;
+  position: relative;
+  top: 2em;
+  left: 5em;
+  width: 20em;
+  height: 28em;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(191,191,191,1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(191,191,191,1);
+  box-shadow: 10px 10px 5px 0px rgba(191,191,191,1);
+}
+
+.userCard > img {
+  width: 100%;
+  opacity: 0.85;
+}
+
+.uploadPicBtn {
+  position: absolute;
+  right: 1em;
+  top: 275px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.uploadPicBtn > a {
+  /*width: 200px;
+  padding: 12px 48px;
+  text-align: center;
+  color: white;
+  border: solid 2px blue;
+  z-index: 1;*/
+}
+
+#uploadImgInput {
+  display: none;
+}
+
+.userCard:hover .uploadPicBtn {
+  opacity: 1;
+}
+
+.userInfo {
+  text-align: center;
+}
+/**************************************************************************************************/
+/* api styling */
+
+.container {
+  /*align-items: center;*/
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+}
+
+.apiContainer {
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+  overflow: scroll;
+  padding-left: 3em;
+}
+
+.apiContainer h1 {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  font-weight: 100;
+  background: linear-gradient(90deg, #FD6F46 10%, #FB9832 90%);
+  text-align: center;
+};
+
+.lightDataContainer {
+  width: 100%;
+
+}
+
+.lightDataList {
+  list-style-type: none;
+  padding-right: 32em;
+  padding-left: 29em;
+}
+
+.lightDataListItem {
+  display: table;
+  color: white;
+  border: 0.01em solid white;
+  box-shadow: 0px 0px 0px 0.1em rgba(0,0,0,0.3);
+  border-radius: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  height: 3em;
+  width: 100%;
+  vertical-align: middle;
+  padding-left: 6em;
+}
+
+.lightADC {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.lightADC > p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  color:  rgba(255, 255, 255, 1);
+  padding-right: 6em;
+
+}
+
+.timeStamp {
+  position: relative;
+  display: hidden;
+
+}
+
+.timeStamp > p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  color:  rgba(255, 255, 255, 0.85);
+}
+
+
+.lightDataListItem:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+
+}
+
+.lightDataListItem:hover .timeStamp {
+      display: table-cell;
+}
+
+/**************************************************************************************************/
+/* miscellaneous styling */
+
+
+*::-webkit-input-placeholder {
+    color: #FD6F46;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif;
+
+
+}
+*:-moz-placeholder {
+    color: #FD6F46;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif;
+
+
+}
+*::-moz-placeholder {
+    color: #FD6F46;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif;
+
+
+}
+*:-ms-input-placeholder {
+    color: #FD6F46;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif;
+
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: none;;
+}

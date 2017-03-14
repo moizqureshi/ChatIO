@@ -1,0 +1,6 @@
+# Ignore this crap
+
+*.pyc
+env.py
+flask_session/
+migrations/
