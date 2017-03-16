@@ -34,16 +34,6 @@ header > a > h1 {
   color: white;
 }
 
-header > a > h5 {
-  position: absolute;
-  top: 2.2em;
-  left: 70em;
-  font-family: 'Lato', sans-serif;
-  font-size: 1em;
-  font-weight: 200;
-  color: white;
-}
-
 footer {
   height: 7em;
   width: 100%;
