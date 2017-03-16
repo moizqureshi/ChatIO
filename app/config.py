@@ -1,3 +1,4 @@
+import os
 from env import *
 
 # Common configuration
@@ -12,14 +13,16 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = True
     SECRET_KEY = THE_SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = "mysql://" + DB_USER + ":" + DB_PASS + "@127.0.0.1:3306/" + DB_NAME
+    DB_HOST = os.getenv('IP', '0.0.0.0')
+    SQLALCHEMY_DATABASE_URI = "mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + "/" + DB_NAME
 
 # Production configurations
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_ECHO = True
     SECRET_KEY = THE_SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = "mysql://" + DB_USER + ":" + DB_PASS + "@127.0.0.1:3306/" + DB_NAME
+    DB_HOST = os.getenv('IP', '0.0.0.0')
+    SQLALCHEMY_DATABASE_URI = "mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + "/" + DB_NAME
 
 app_config = {
     'development': DevelopmentConfig,
