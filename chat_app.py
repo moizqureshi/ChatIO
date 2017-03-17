@@ -237,7 +237,7 @@ Input: URL Arguments for filename and filetype
 Return Type: Presigned AWS S3 POST URL
 '''
 @app.route('/sign_s3/', methods=['GET','POST','OPTIONS'])
-@crossdomain(origin='*')
+@crossdomain(origin='https://chat.moizqureshi.io')
 def sign_s3():
 
     file_name = request.args.get('file_name')
