@@ -24,6 +24,6 @@ Real Time Chat App using Flask and SocketIO
 - [ ] Responsive Layout for all Devices
   
 
-[Login_Page]: https://raw.githubusercontent.com/moizqureshi/ChatIO/master/ChatIO_Login.png "ChatIO - Login Page"
+[Login_Page]: https://raw.githubusercontent.com/moizqureshi/ChatIO/master/ChatIO_Login.png | width= 300 "ChatIO - Login Page"
 [Chat_Page]: https://raw.githubusercontent.com/moizqureshi/ChatIO/master/ChatIO_Chat.png "ChatIO - Login Page"
 [User_Page]: https://raw.githubusercontent.com/moizqureshi/ChatIO/master/ChatIO_UserProfile.png "ChatIO - Login Page"
