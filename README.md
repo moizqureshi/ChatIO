@@ -4,7 +4,7 @@ Real Time Chat App using Flask and SocketIO
 [ChatIO - Running Demo](https://chat.moizqureshi.io)
 
 ## Screenshots
-![Login][Login_Page | width=300] ![Chat][Chat_Page] ![Profile][User_Page]
+![Login][Login_Page] ![Chat][Chat_Page] ![Profile][User_Page]
 
 ## Requirements
 [Flask Dependencies](https://github.com/moizqureshi/ChatIO/blob/master/requirements.txt)
